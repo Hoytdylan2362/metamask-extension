@@ -305,8 +305,6 @@ import { encryptorFactory } from './lib/encryptor-factory';
 import { addDappTransaction, addTransaction } from './lib/transaction/util';
 import { LatticeKeyringOffscreen } from './lib/offscreen-bridge/lattice-offscreen-keyring';
 
-import { PushPlatformNotificationsController } from './controllers/push-platform-notifications/push-platform-notifications';
-
 export const METAMASK_CONTROLLER_EVENTS = {
   // Fired after state changes that impact the extension badge (unapproved msg count)
   // The process of updating the badge happens in app/scripts/background.js.
@@ -1386,18 +1384,6 @@ export default class MetamaskController extends EventEmitter {
     });
 
     ///: END:ONLY_INCLUDE_IF
-
-    // Initialize the PushPlatformNotificationsController with restricted access via the controllerMessenger.
-    // This controller is responsible for managing push notifications within the platform.
-    const pushPlatformNotificationsMessenger =
-      this.controllerMessenger.getRestricted({
-        name: 'PushPlatformNotificationsController',
-      });
-    this.pushPlatformNotificationsController =
-      new PushPlatformNotificationsController({
-        messenger: pushPlatformNotificationsMessenger,
-        state: initState.PushPlatformNotificationsController,
-      });
 
     // account tracker watches balances, nonces, and any code at their address
     this.accountTracker = new AccountTracker({
@@ -2479,24 +2465,6 @@ export default class MetamaskController extends EventEmitter {
   ///: END:ONLY_INCLUDE_IF
 
   /**
-   * Enables push notifications for the MetaMask extension.
-   * This function triggers the push notifications controller to activate
-   * push notifications, allowing the extension to send notifications to the user's device.
-   */
-  enablePushNotifications() {
-    this.pushPlatformNotificationsController.enablePushNotifications();
-  }
-
-  /**
-   * Disables push notifications for the MetaMask extension.
-   * This function triggers the push notifications controller to deactivate
-   * push notifications, preventing the extension from sending notifications to the user's device.
-   */
-  disablePushNotifications() {
-    this.pushPlatformNotificationsController.disablePushNotifications();
-  }
-
-  /**
    * Sets up BaseController V2 event subscriptions. Currently, this includes
    * the subscriptions necessary to notify permission subjects of account
    * changes.
@@ -3374,8 +3342,6 @@ export default class MetamaskController extends EventEmitter {
         'SnapInterfaceController:updateInterfaceState',
       ),
       ///: END:ONLY_INCLUDE_IF
-      enablePushNotifications: this.enablePushNotifications.bind(this),
-      disablePushNotifications: this.disablePushNotifications.bind(this),
 
       ///: BEGIN:ONLY_INCLUDE_IF(desktop)
       // Desktop
