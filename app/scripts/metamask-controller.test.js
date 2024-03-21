@@ -1267,9 +1267,6 @@ describe('MetaMaskController', () => {
         await metamaskController._onKeyringControllerUpdate({ keyrings: [] });
 
         expect(
-          metamaskController.preferencesController.syncAddresses,
-        ).not.toHaveBeenCalled();
-        expect(
           metamaskController.accountTracker.syncWithAddresses,
         ).not.toHaveBeenCalled();
         expect(metamaskController.getState()).toStrictEqual(oldState);
@@ -1292,9 +1289,6 @@ describe('MetaMaskController', () => {
           ],
         });
 
-        expect(
-          metamaskController.preferencesController.syncAddresses,
-        ).toHaveBeenCalledWith(['0x1', '0x2']);
         expect(
           metamaskController.accountTracker.syncWithAddresses,
         ).toHaveBeenCalledWith(['0x1', '0x2']);
@@ -1319,9 +1313,6 @@ describe('MetaMaskController', () => {
           ],
         });
 
-        expect(
-          metamaskController.preferencesController.syncAddresses,
-        ).toHaveBeenCalledWith(['0x1', '0x2']);
         expect(
           metamaskController.accountTracker.syncWithAddresses,
         ).toHaveBeenCalledWith(['0x1', '0x2']);
