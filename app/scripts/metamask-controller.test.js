@@ -1206,9 +1206,6 @@ describe('MetaMaskController', () => {
     describe('#_onKeyringControllerUpdate', () => {
       it('should do nothing if there are no keyrings in state', async () => {
         jest
-          .spyOn(metamaskController.preferencesController, 'syncAddresses')
-          .mockReturnValue();
-        jest
           .spyOn(metamaskController.accountTracker, 'syncWithAddresses')
           .mockReturnValue();
 
@@ -1222,9 +1219,6 @@ describe('MetaMaskController', () => {
       });
 
       it('should sync addresses if there are keyrings in state', async () => {
-        jest
-          .spyOn(metamaskController.preferencesController, 'syncAddresses')
-          .mockReturnValue();
         jest
           .spyOn(metamaskController.accountTracker, 'syncWithAddresses')
           .mockReturnValue();
@@ -1245,9 +1239,6 @@ describe('MetaMaskController', () => {
       });
 
       it('should NOT update selected address if already unlocked', async () => {
-        jest
-          .spyOn(metamaskController.preferencesController, 'syncAddresses')
-          .mockReturnValue();
         jest
           .spyOn(metamaskController.accountTracker, 'syncWithAddresses')
           .mockReturnValue();
