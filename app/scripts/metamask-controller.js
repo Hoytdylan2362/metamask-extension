@@ -3651,15 +3651,7 @@ export default class MetamaskController extends EventEmitter {
   async createNewVaultAndKeychain(password) {
     const releaseLock = await this.createVaultMutex.acquire();
     try {
-      const vault = await this.keyringController.createNewVaultAndKeychain(
-        password,
-      );
-
-      const accounts = await this.keyringController.getAccounts();
-      this.preferencesController.setAddresses(accounts);
-      this.selectFirstAccount();
-
-      return vault;
+      return await this.keyringController.createNewVaultAndKeychain(password);
     } finally {
       releaseLock();
     }
@@ -3676,9 +3668,6 @@ export default class MetamaskController extends EventEmitter {
     const releaseLock = await this.createVaultMutex.acquire();
     try {
       const seedPhraseAsBuffer = Buffer.from(encodedSeedPhrase);
-
-      // clear known identities
-      this.preferencesController.setAddresses([]);
 
       // clear permissions
       this.permissionController.clearState();
@@ -3743,8 +3732,6 @@ export default class MetamaskController extends EventEmitter {
       // Optimistically called to not block MetaMask login due to
       // Ledger Keyring GitHub downtime
       this.setLedgerTransportPreference();
-
-      this.selectFirstAccount();
 
       return vault;
     } finally {
@@ -3905,18 +3892,6 @@ export default class MetamaskController extends EventEmitter {
    * @property {string} address - The account's ethereum address, in lower case.
    * receiving funds from our automatic Ropsten faucet.
    */
-
-  /**
-   * Sets the first account in the state to the selected address
-   */
-  selectFirstAccount() {
-    const { identities } = this.preferencesController.store.getState();
-    const [address] = Object.keys(identities);
-    this.preferencesController.setSelectedAddress(address);
-
-    const [account] = this.accountsController.listAccounts();
-    this.accountsController.setSelectedAccount(account.id);
-  }
 
   /**
    * Gets the mnemonic of the user's primary keyring.
@@ -4143,7 +4118,6 @@ export default class MetamaskController extends EventEmitter {
       keyring,
     );
     const newAccounts = await this.keyringController.getAccounts();
-    this.preferencesController.setAddresses(newAccounts);
     newAccounts.forEach((address) => {
       if (!oldAccounts.includes(address)) {
         const label = this.getAccountLabel(
