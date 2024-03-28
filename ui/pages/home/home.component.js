@@ -887,8 +887,6 @@ export default class Home extends PureComponent {
                 actionButtonLabel={t('basicConfigurationBannerCTA')}
                 actionButtonOnClick={() => {
                   setBasicFunctionalityModalOpen();
-                  // TODO:
-                  // 1) disable ENS setting & any others that are not "basic functionality"
                 }}
                 title={t('basicConfigurationBannerTitle')}
               ></BannerAlert>
