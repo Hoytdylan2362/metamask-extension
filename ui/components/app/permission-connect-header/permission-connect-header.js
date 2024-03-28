@@ -19,7 +19,18 @@ import {
   AvatarBase,
 } from '../../component-library';
 
-const PermissionConnectHeader = ({ title, origin, iconUrl }) => {
+const PermissionConnectHeader = ({ origin, iconUrl }) => {
+  const transformOriginToTitle = (rawOrigin) => {
+    try {
+      const url = new URL(rawOrigin);
+      const parts = url.hostname.split('.');
+      return parts.slice(-2).join('.');
+    } catch (e) {
+      return 'Unknown Origin';
+    }
+  };
+  const title = transformOriginToTitle(origin);
+
   return (
     <Box
       backgroundColor={BackgroundColor.backgroundDefault}
@@ -76,7 +87,6 @@ const PermissionConnectHeader = ({ title, origin, iconUrl }) => {
 };
 
 PermissionConnectHeader.propTypes = {
-  title: PropTypes.string,
   origin: PropTypes.string,
   iconUrl: PropTypes.string,
 };
