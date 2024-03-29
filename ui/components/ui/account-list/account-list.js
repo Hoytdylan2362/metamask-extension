@@ -182,21 +182,21 @@ const AccountList = ({
                       </Box>
                     </Box>
                   </Box>
+                  {addressLastConnectedMap[address] ? (
+                    <Tooltip
+                      title={`${t('lastConnected')} ${
+                        addressLastConnectedMap[address]
+                      }`}
+                    >
+                      <Icon
+                        name={IconName.Info}
+                        color={IconColor.iconMuted}
+                        className="info-circle"
+                        marginInlineStart={2}
+                      />
+                    </Tooltip>
+                  ) : null}
                 </Box>
-                {addressLastConnectedMap[address] ? (
-                  <Tooltip
-                    title={`${t('lastConnected')} ${
-                      addressLastConnectedMap[address]
-                    }`}
-                  >
-                    <Icon
-                      name={IconName.Info}
-                      color={IconColor.iconMuted}
-                      className="info-circle"
-                      marginInlineStart={2}
-                    />
-                  </Tooltip>
-                ) : null}
               </Box>
             );
           })}
