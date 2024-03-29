@@ -7,6 +7,7 @@ import PermissionCell from '../../permission-cell';
 import { Box } from '../../../component-library';
 import { getSnapsMetadata } from '../../../../selectors';
 import { getSnapName } from '../../../../helpers/utils/util';
+import { BlockSize } from '../../../../helpers/constants/design-system';
 
 export default function SnapPermissionsList({
   snapId,
@@ -18,7 +19,12 @@ export default function SnapPermissionsList({
   const snapsMetadata = useSelector(getSnapsMetadata);
 
   return (
-    <Box paddingTop={2} paddingBottom={2} className="snap-permissions-list">
+    <Box
+      paddingTop={2}
+      paddingBottom={2}
+      width={BlockSize.Full}
+      className="snap-permissions-list"
+    >
       {getWeightedPermissions({
         t,
         permissions,
