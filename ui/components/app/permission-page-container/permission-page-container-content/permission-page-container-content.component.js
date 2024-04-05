@@ -59,6 +59,7 @@ export default class PermissionPageContainerContent extends PureComponent {
         height={BlockSize.Full}
         paddingLeft={4}
         paddingRight={4}
+        backgroundColor={BackgroundColor.backgroundAlternative}
       >
         <Box
           display={Display.Flex}
@@ -71,9 +72,10 @@ export default class PermissionPageContainerContent extends PureComponent {
           <Text variant={TextVariant.headingLg} textAlign={TextAlign.Center}>
             {t('permissions')}
           </Text>
-          <Text variant={TextVariant.bodyMd}>
+          <Text variant={TextVariant.bodyMd} textAlign={TextAlign.Center}>
             {t('nativePermissionRequestDescription', [
               <Text
+                as="span"
                 key={`description_key_${subjectMetadata.origin}`}
                 fontWeight={FontWeight.Medium}
               >
@@ -84,7 +86,7 @@ export default class PermissionPageContainerContent extends PureComponent {
         </Box>
         <Box
           display={Display.Flex}
-          backgroundColor={BackgroundColor.backgroundAlternative}
+          backgroundColor={BackgroundColor.backgroundDefault}
           paddingLeft={4}
           paddingRight={4}
           paddingTop={2}

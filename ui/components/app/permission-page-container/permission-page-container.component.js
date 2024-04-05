@@ -15,6 +15,12 @@ import { RestrictedMethods } from '../../../../shared/constants/permissions';
 import SnapPrivacyWarning from '../snaps/snap-privacy-warning';
 import { getDedupedSnaps } from '../../../helpers/utils/util';
 ///: END:ONLY_INCLUDE_IF
+import {
+  BackgroundColor,
+  Display,
+  FlexDirection,
+} from '../../../helpers/constants/design-system';
+import { Box } from '../../component-library';
 import { PermissionPageContainerContent } from '.';
 
 export default class PermissionPageContainer extends Component {
@@ -196,7 +202,11 @@ export default class PermissionPageContainer extends Component {
           selectedAccounts={selectedAccounts}
           allAccountsSelected={allAccountsSelected}
         />
-        <div className="permission-approval-container__footers">
+        <Box
+          display={Display.Flex}
+          backgroundColor={BackgroundColor.backgroundAlternative}
+          flexDirection={FlexDirection.Column}
+        >
           {targetSubjectMetadata?.subjectType !== SubjectType.Snap && (
             <PermissionsConnectFooter />
           )}
@@ -209,7 +219,7 @@ export default class PermissionPageContainer extends Component {
             submitText={this.context.t('confirm')}
             buttonSizeLarge={false}
           />
-        </div>
+        </Box>
       </>
     );
   }
